@@ -1,27 +1,23 @@
 import java.util.Stack;
 
-public class MyQuickSort {
+class MyQuickSort {
     public static void quickSort(int[] a, int size) {
+        Stack<Integer> stack = new Stack<>();
+        stack.push(0);
+        stack.push(size - 1);
 
-        // Создаем стек для хранения нижних и верхних границ
-        Stack<Integer> lows = new Stack<>();
-        Stack<Integer> highs = new Stack<>();
 
-        lows.push(0);
-        highs.push(size - 1);
-
-        while (!lows.isEmpty()) {
+        while (!stack.isEmpty()) {
             // текущие границы
-            int low = lows.pop();
-            int high = highs.pop();
+            int high = stack.pop();
+            int low = stack.pop();
             int i = low;
             int j = high;
 
             // Выбираем pivot элемент
             int pivot = a[low + (high - low) / 2];
 
-            do {
-                // Находим элементы для перестановки
+            while (i <= j) {
                 while (a[i] < pivot) {
                     i++;
                 }
@@ -29,7 +25,6 @@ public class MyQuickSort {
                     j--;
                 }
 
-                // Переставляем элементы, если необходимо
                 if (i <= j) {
                     if (a[i] > a[j]) {
                         int tmp = a[i];
@@ -37,20 +32,18 @@ public class MyQuickSort {
                         a[j] = tmp;
                     }
                     i++;
-                    if (j > 0) {
-                        j--;
-                    }
+                    j--;
                 }
-            } while (i <= j);
-
-            // Добавляем новые границы в стек
-            if (i < high) {
-                lows.push(i);
-                highs.push(high);
             }
-            if (j > low) {
-                lows.push(low);
-                highs.push(j);
+            // Добавляем новые границы в стек
+
+            if (low < j) {
+                stack.push(low);
+                stack.push(j);
+            }
+            if (i < high) {
+                stack.push(i);
+                stack.push(high);
             }
         }
     }

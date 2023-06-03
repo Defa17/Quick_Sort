@@ -16,7 +16,7 @@ public class Main {
             arraySorted[i] = randomNumber;
         }
 
-        MyQuickSort.quickSort(array, 10);
+        MyQuickSort.quickSort(arraySorted, 10);
         System.out.println("Неотсоритрованный массив: ");
         System.out.println(Arrays.toString(array));
         System.out.println("Отсортированный массив: ");
