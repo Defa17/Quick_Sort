@@ -5,8 +5,16 @@ class Interval {
     public int high;
 
     public Interval(int low, int high) {
+        if (low > high) {
+            throw new IllegalArgumentException("low > high");
+        }
         this.low = low;
         this.high = high;
+    }
+
+    // вычисляем среднее
+    public int average() {
+        return (low + high) / 2;
     }
 }
 
@@ -23,8 +31,7 @@ class MyQuickSort {
             int i = low;
             int j = high;
 
-            // Выбираем pivot элемент
-            int pivot = a[low + (high - low) / 2];
+            int pivot = a[interval.average()];
 
             while (i <= j) {
                 while (a[i] < pivot) {
