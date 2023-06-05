@@ -1,16 +1,25 @@
 import java.util.Stack;
 
+class Interval {
+    public int low;
+    public int high;
+
+    public Interval(int low, int high) {
+        this.low = low;
+        this.high = high;
+    }
+}
+
 class MyQuickSort {
     public static void quickSort(int[] a, int size) {
-        Stack<Integer> stack = new Stack<>();
-        stack.push(0);
-        stack.push(size - 1);
-
+        Stack<Interval> stack = new Stack<>();
+        stack.push(new Interval(0, size - 1));
 
         while (!stack.isEmpty()) {
-            // текущие границы
-            int high = stack.pop();
-            int low = stack.pop();
+            // текущий интервал
+            Interval interval = stack.pop();
+            int low = interval.low;
+            int high = interval.high;
             int i = low;
             int j = high;
 
@@ -35,15 +44,12 @@ class MyQuickSort {
                     j--;
                 }
             }
-            // Добавляем новые границы в стек
-
+            // Добавляем новый интервал в стек
             if (low < j) {
-                stack.push(low);
-                stack.push(j);
+                stack.push(new Interval(low, j));
             }
             if (i < high) {
-                stack.push(i);
-                stack.push(high);
+                stack.push(new Interval(i, high));
             }
         }
     }
